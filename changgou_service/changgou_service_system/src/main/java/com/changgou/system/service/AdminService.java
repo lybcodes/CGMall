@@ -1,7 +1,9 @@
 package com.changgou.system.service;
 
-import com.changgou.pojo.Admin;
+import com.changgou.entity.Result;
+import com.changgou.system.pojo.Admin;
 import com.github.pagehelper.Page;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -64,6 +66,12 @@ public interface AdminService {
     Page<Admin> findPage(Map<String, Object> searchMap, int page, int size);
 
 
+    /**
+     * 管理员登录
+     * @param admin
+     * @return
+     */
+    public Boolean login(Admin admin);
 
 
 }

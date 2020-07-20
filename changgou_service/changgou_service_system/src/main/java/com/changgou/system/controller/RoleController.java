@@ -3,7 +3,7 @@ import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.system.service.RoleService;
-import com.changgou.pojo.Role;
+import com.changgou.system.pojo.Role;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

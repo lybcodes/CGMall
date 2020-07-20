@@ -3,7 +3,7 @@ import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.system.service.MenuService;
-import com.changgou.pojo.Menu;
+import com.changgou.system.pojo.Menu;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

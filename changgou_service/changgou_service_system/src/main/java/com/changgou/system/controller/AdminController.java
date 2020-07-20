@@ -3,10 +3,12 @@ import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.system.service.AdminService;
-import com.changgou.pojo.Admin;
+import com.changgou.system.pojo.Admin;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @RestController
@@ -104,4 +106,17 @@ public class AdminController {
     }
 
 
+    /**
+     * 管理员登录
+     * @param admin
+     * @return
+     */
+    @PostMapping("/login")
+    public Result login(@RequestBody Admin admin){
+        Boolean login = adminService.login(admin);
+        Map<String, String> resulltMap = new HashMap<>();
+        resulltMap.put("loginName", admin.getLoginName());
+        resulltMap.put("login", String.valueOf(login));
+        return new Result(true, StatusCode.OK, "查询成功", resulltMap);
+    }
 }

@@ -2,7 +2,7 @@ package com.changgou.system.service.impl;
 
 import com.changgou.system.dao.ResourceMapper;
 import com.changgou.system.service.ResourceService;
-import com.changgou.pojo.Resource;
+import com.changgou.system.pojo.Resource;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
