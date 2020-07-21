@@ -10,6 +10,6 @@ public class TestBcrypt {
 
         //BCrypt不支持反运算，只支持密码校验
         boolean checkpw = BCrypt.checkpw("123456", "$2a$10$61ogZY7EXsMDWeVGQpDq3OBF1.phaUu7.xrwLyWFTOu8woE08zMIW");
-        System.out.println(checkpw);
+        //System.out.println(checkpw);
     }
 }

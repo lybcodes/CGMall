@@ -22,10 +22,11 @@ public class Brand implements Serializable {
 	private String letter;//品牌的首字母
 	private Integer seq;//排序
 
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -33,6 +34,7 @@ public class Brand implements Serializable {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -40,6 +42,7 @@ public class Brand implements Serializable {
 	public String getImage() {
 		return image;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
@@ -47,6 +50,7 @@ public class Brand implements Serializable {
 	public String getLetter() {
 		return letter;
 	}
+
 	public void setLetter(String letter) {
 		this.letter = letter;
 	}
@@ -54,10 +58,8 @@ public class Brand implements Serializable {
 	public Integer getSeq() {
 		return seq;
 	}
+
 	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
-
-
-
 }
