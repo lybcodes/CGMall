@@ -37,3 +37,7 @@ hystrix:
           thread:
             # 熔断器超时时间，默认：1000/毫秒
             timeoutInMilliseconds: 20000
+#生成唯一Id使用的工作机器号
+workerId: 0
+#生成唯一id使用的随机种子
+datacenterId: 0
