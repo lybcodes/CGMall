@@ -1,7 +1,9 @@
 package com.changgou.goods.service;
 
+import com.changgou.goods.pojo.Goods;
 import com.changgou.goods.pojo.Spu;
 import com.github.pagehelper.Page;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -21,17 +23,22 @@ public interface SpuService {
      */
     Spu findById(String id);
 
+    Goods findGoodsById(String id);
     /***
      * 新增
      * @param spu
      */
     void add(Spu spu);
 
+    void addGoods(Goods goods);
+
     /***
      * 修改
      * @param spu
      */
     void update(Spu spu);
+
+    void updateGoods(Goods goods);
 
     /***
      * 删除
@@ -64,6 +71,35 @@ public interface SpuService {
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
 
+    /**
+     * 商品审核
+     * @param spuId
+     */
+    public void audit(String spuId);
+
+    /**
+     * 商品上架
+     * @param spuId
+     */
+    public void put(String spuId);
+
+    /**
+     * 商品下架
+     * @param spuId
+     */
+    public void pull(String spuId);
+
+    /**
+     * 逻辑删除
+     * @param spuId
+     */
+    public void del(String spuId);
+
+    /**
+     * 逻辑恢复
+     * @param spuId
+     */
+    public void restore(String spuId);
 
 
 }
