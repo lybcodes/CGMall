@@ -54,7 +54,7 @@ public class AdServiceImpl implements AdService {
      */
     @Override
     public void update(Ad ad){
-        adMapper.updateByPrimaryKey(ad);
+        adMapper.updateByPrimaryKeySelective(ad);
     }
 
     /**
