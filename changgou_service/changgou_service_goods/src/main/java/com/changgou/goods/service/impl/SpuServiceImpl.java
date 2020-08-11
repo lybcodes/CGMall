@@ -8,6 +8,7 @@ import com.changgou.util.IdWorker;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,9 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private IdWorker idWorker;
+
+    @Autowired
+    private RabbitMessagingTemplate rabbitMessagingTemplate;
 
     /**
      * 查询全部列表
@@ -292,9 +296,9 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public void put(String spuId) {
+    public void put(String id) {
         //1. 根据商品id获取商品对象
-        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        Spu spu = spuMapper.selectByPrimaryKey(id);
         //2. 判断删除状态必须为未删除的
         if (!"0".equals(spu.getIsDelete())) {
             throw new RuntimeException("您的商品已删除, 不可以上架");
@@ -306,6 +310,8 @@ public class SpuServiceImpl implements SpuService {
         //4. 将数据库中商品的上架状态改为已上架
         spu.setIsMarketable("1");
         spuMapper.updateByPrimaryKeySelective(spu);
+        //将数据发送到rabbitMQ中
+        rabbitMessagingTemplate.convertAndSend("goods_up_exchange", "", id);
     }
 
     @Override

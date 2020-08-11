@@ -79,9 +79,9 @@ public interface SpuService {
 
     /**
      * 商品上架
-     * @param spuId
+     * @param id
      */
-    public void put(String spuId);
+    public void put(String id);
 
     /**
      * 商品下架
