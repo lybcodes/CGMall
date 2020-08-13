@@ -2,9 +2,7 @@ package com.changgou.search.service;
 
 import com.alibaba.fastjson.JSON;
 import com.changgou.pojo.SkuInfo;
-import jdk.nashorn.internal.ir.IfNode;
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.queryparser.xml.builders.BooleanQueryBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -12,7 +10,6 @@ import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
@@ -22,6 +19,7 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
@@ -89,7 +87,7 @@ public class SearchServiceImpl implements SearchService {
             //必须, 相当于and的意思
             //QueryBuilders.matchQuery是将查询的关键字根据指定的分词器切分词后, 将切分出来的词一个一个查询,
             //将查询到的结果组合到一起返回
-            //operator(Operator.AND)是控制切分词后, 根据每个词查询出来结果, 这些结果组合在一块返回的关系
+            //operator(Operator.AND)是控制切分词后, 根据每个词查询出来结果, 这些结果组合在一块（Operator.AND求交集）返回的关系
             boolQueryBuilder.must(QueryBuilders.matchQuery("name", keywords).operator(Operator.AND));
         }
 
@@ -109,7 +107,7 @@ public class SearchServiceImpl implements SearchService {
             for (String searchKey : searchMap.keySet()) {
                 //找到所有以spec_开头的key, 这样的才是规格参数
                 if (searchKey.startsWith("spec_")) {
-                    //将转移符%2B转换成加号, 特殊字符处理
+                    //将转义符%2B转换成加号, 特殊字符处理
                     searchMap.put(searchKey, searchMap.get(searchKey).replace("%2B", "+"));
                     //注意: 因为在SkuInfo索引库中规格是text类型, 默认会切分词, 这里需要将规格当做一个整体来做过滤
                     //所以最后拼接的.keyword是强制类型转化, 将text类型转成keyword类型, 这样就不会切分词, 作为一个整体使用
@@ -133,7 +131,7 @@ public class SearchServiceImpl implements SearchService {
          * PageRequest对象, 第一参数是从第几页开始查询, 第二个参数是每页查询多少条数据
          * 注意: 第一个参数从第几页查询, 默认起始是从第0页开始查询
          */
-        nativeSearchQueryBuilder.withPageable(new PageRequest(Integer.parseInt(pageNum) - 1, PAGE_SIZE));
+        nativeSearchQueryBuilder.withPageable(PageRequest.of(Integer.parseInt(pageNum) - 1, PAGE_SIZE));
 
         /**
          *
@@ -168,7 +166,7 @@ public class SearchServiceImpl implements SearchService {
          * 根据规格聚合查询
          */
         String specAgg = "specAgg";
-        TermsAggregationBuilder specAggBuilder = AggregationBuilders.terms(specAgg).field("spec.keyword");
+        TermsAggregationBuilder specAggBuilder = AggregationBuilders.terms(specAgg).field("spec.keyword");//这里不需要切分词，所以类型强转加上.keywords
         nativeSearchQueryBuilder.addAggregation(specAggBuilder);
 
 
@@ -177,6 +175,7 @@ public class SearchServiceImpl implements SearchService {
          */
         //将组合查询对象放入顶级查询对象中
         nativeSearchQueryBuilder.withQuery(boolQueryBuilder);
+
         AggregatedPage<SkuInfo> skuInfos = esTemplate.queryForPage(nativeSearchQueryBuilder.build(), SkuInfo.class, new SearchResultMapper() {
 
             //在这里重新组合查询结果, 将高亮名称获取到放入结果集中
@@ -238,7 +237,7 @@ public class SearchServiceImpl implements SearchService {
         resultMap.put("rows", skuInfos.getContent());
         //总页数
         resultMap.put("totalPages", skuInfos.getTotalPages());
-        //查询到的中条数
+        //查询到的总条数
         resultMap.put("total", skuInfos.getTotalElements());
 
         return resultMap;

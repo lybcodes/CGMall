@@ -1,6 +1,7 @@
 package com.changgou.goods.service;
 
 import com.changgou.goods.pojo.Goods;
+import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.pojo.Spu;
 import com.github.pagehelper.Page;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -353,6 +353,7 @@ public class SpuServiceImpl implements SpuService {
         spuMapper.updateByPrimaryKeySelective(spu);
     }
 
+
     /**
      * 构建查询对象
      * @param searchMap

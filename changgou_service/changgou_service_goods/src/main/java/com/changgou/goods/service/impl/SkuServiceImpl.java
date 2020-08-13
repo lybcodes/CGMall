@@ -104,12 +104,21 @@ public class SkuServiceImpl implements SkuService {
         return (Page<Sku>)skuMapper.selectByExample(example);
     }
 
+    @Override
+    public List<Sku> findListBySpuId(String spuId) {
+        Example example = new Example(Sku.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("spuId", spuId);
+        List<Sku> skuList = skuMapper.selectByExample(example);
+        return skuList;
+    }
+
     /**
      * 构建查询对象
      * @param searchMap
      * @return
      */
-    private Example createExample(Map<String, Object> searchMap){
+    public Example createExample(Map<String, Object> searchMap){
         Example example=new Example(Sku.class);
         Example.Criteria criteria = example.createCriteria();
         if(searchMap!=null){
