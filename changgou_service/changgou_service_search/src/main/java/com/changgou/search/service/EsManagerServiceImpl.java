@@ -53,7 +53,7 @@ public class EsManagerServiceImpl implements EsManagerService {
         List<SkuInfo> skuInfoList = JSON.parseArray(skuJsonStr, SkuInfo.class);
 
         for (SkuInfo skuInfo : skuInfoList) {
-            //将规格json格式字符串转换成Map
+            //将规格json格式字符串转换成Map，因为json字符串不好做查询，所以这里将它转成map
             Map specMap = JSON.parseObject(skuInfo.getSpec(), Map.class);
             skuInfo.setSpecMap(specMap);
         }
