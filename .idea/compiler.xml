@@ -21,6 +21,7 @@
         <module name="changgou_service_goods_api" />
         <module name="changgou_service_order" />
         <module name="changgou_service_order_api" />
+        <module name="changgou_service_page" />
         <module name="changgou_service_search" />
         <module name="changgou_service_search_api" />
         <module name="changgou_service_system" />
@@ -49,6 +50,7 @@
       <module name="changgou_service_goods_api" target="1.8" />
       <module name="changgou_service_order" target="1.8" />
       <module name="changgou_service_order_api" target="1.8" />
+      <module name="changgou_service_page" target="1.8" />
       <module name="changgou_service_search" target="1.8" />
       <module name="changgou_service_search_api" target="1.8" />
       <module name="changgou_service_system" target="1.8" />
