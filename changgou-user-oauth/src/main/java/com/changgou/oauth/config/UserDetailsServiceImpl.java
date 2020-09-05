@@ -1,6 +1,7 @@
 package com.changgou.oauth.config;
 
 import com.changgou.oauth.util.UserJwt;
+import com.changgou.user.feign.UserFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,6 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     ClientDetailsService clientDetailsService;
+
+    @Autowired
+    private UserFeign userFeign;
 
     /****
      * 自定义授权认证
@@ -52,10 +56,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         //根据用户名查询用户信息
-        String pwd = new BCryptPasswordEncoder().encode("itheima");
+        //String pwd = new BCryptPasswordEncoder().encode("itheima");
+        com.changgou.user.pojo.User userInfo = userFeign.loadUserInfo(username);
         //创建User对象
         String permissions = "goods_list,seckill_list";
-        UserJwt userDetails = new UserJwt(username,pwd,AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
+        UserJwt userDetails = new UserJwt(username,userInfo.getPassword(),AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
         return userDetails;
     }
 }

@@ -11,7 +11,7 @@
 
     <artifactId>changgou_gateway_system</artifactId>
 
-    <dependencies>
+<!--    <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -35,6 +35,6 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
         </dependency>
-    </dependencies>
+    </dependencies>-->
 
 </project>
