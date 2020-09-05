@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/changgou-user-oauth/changgou-user-oauth.iml" filepath="$PROJECT_DIR$/changgou-user-oauth/changgou-user-oauth.iml" />
       <module fileurl="file://$PROJECT_DIR$/changgou_canal/changgou_canal.iml" filepath="$PROJECT_DIR$/changgou_canal/changgou_canal.iml" />
       <module fileurl="file://$PROJECT_DIR$/changgou_common/changgou_common.iml" filepath="$PROJECT_DIR$/changgou_common/changgou_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/changgou_common_db/changgou_common_db.iml" filepath="$PROJECT_DIR$/changgou_common_db/changgou_common_db.iml" />

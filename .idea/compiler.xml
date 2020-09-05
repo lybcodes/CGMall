@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="changgou-user-oauth" />
         <module name="changgou_canal" />
         <module name="changgou_common" />
         <module name="changgou_common_db" />
@@ -32,6 +33,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="changgou-user-oauth" target="1.8" />
       <module name="changgou_canal" target="1.8" />
       <module name="changgou_common" target="1.8" />
       <module name="changgou_common_db" target="1.8" />
