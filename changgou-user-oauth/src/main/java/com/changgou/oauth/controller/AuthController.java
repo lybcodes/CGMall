@@ -8,15 +8,18 @@ import com.changgou.oauth.util.AuthToken;
 import com.changgou.oauth.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
+@Controller
 @RequestMapping("/oauth")
 public class AuthController {
 
@@ -35,6 +38,13 @@ public class AuthController {
     @Value("${auth.cookieMaxAge}")
     private int cookieMaxAge;
 
+    @GetMapping("/toLogin")
+    public String toLogin(){
+        return "login";
+    }
+
+
+
     /**
      * 用户认证 申请令牌
      * @param username
@@ -42,6 +52,7 @@ public class AuthController {
      * @return
      */
     @RequestMapping("/login")
+    @ResponseBody
     public Result login(String username, String password) {
         //校验参数
         if(StringUtils.isEmpty(username)) {

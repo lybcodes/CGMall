@@ -25,7 +25,17 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
                 "/oauth/login",
-                "/oauth/logout");
+                "/oauth/logout",
+                "/oauth/interface/login",
+                "/oauth/toLogin",
+                "/login.html",
+                "/css/**",
+                "/data/**",
+                "/fonts/**",
+                "/img/**",
+                "/js/**"
+                //"/oauth/check_token"
+        );
     }
 
     /***
@@ -50,7 +60,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /****
-     *
+     *  配置必须拦截的请求
+     *  配置登录表单
      * @param http
      * @throws Exception
      */
@@ -65,5 +76,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();       //其他请求都需要经过验证
 
+        //配置springSecurity要跳转登录页面的访问路径
+        http.formLogin().loginPage("/oauth/toLogin").
+                //配置springSecurity执行登录的访问路径
+                        loginProcessingUrl("/oauth/login");
     }
 }

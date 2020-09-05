@@ -45,7 +45,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping
+    @PostMapping("/add")
     public Result add(@RequestBody User user){
         userService.add(user);
         return new Result(true,StatusCode.OK,"添加成功");

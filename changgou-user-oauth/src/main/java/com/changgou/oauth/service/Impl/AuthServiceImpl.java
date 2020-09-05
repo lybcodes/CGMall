@@ -55,11 +55,11 @@ public class AuthServiceImpl implements AuthService {
         String url = uri + "/oauth/token";
 
         //封装请求参数，申请令牌
-        LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "password");
         body.add("username", username);
         body.add("password", password);
-        LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Authorization", this.getHttpBasic(clientId, clientSecret));
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
