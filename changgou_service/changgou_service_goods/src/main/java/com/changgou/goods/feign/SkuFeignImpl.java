@@ -1,6 +1,7 @@
 package com.changgou.goods.feign;
 
 import com.changgou.entity.Result;
+import com.changgou.entity.StatusCode;
 import com.changgou.goods.dao.SkuMapper;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.service.SkuService;
@@ -34,5 +35,11 @@ public class SkuFeignImpl implements SkuFeign{
         Result<List<Sku>> skuResult = new Result<>();
         skuResult.setData(skus);
         return skuResult;
+    }
+
+    @Override
+    public Result<Sku> findById(String id) {
+        Sku sku = skuService.findById(id);
+        return new Result(true, StatusCode.OK,"查询成功",sku);
     }
 }

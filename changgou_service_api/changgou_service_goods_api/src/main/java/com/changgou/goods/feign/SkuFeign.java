@@ -31,4 +31,7 @@ public interface SkuFeign {
      */
     @GetMapping(value = "/search" )
     public Result findAllList(@RequestParam Map searchMap);
+
+    @GetMapping("/{id}")
+    public Result<Sku> findById(@PathVariable("id") String id);
 }
