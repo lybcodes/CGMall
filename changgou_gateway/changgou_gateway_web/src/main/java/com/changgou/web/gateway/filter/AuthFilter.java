@@ -43,7 +43,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpResponse response = exchange.getResponse();
 
         String path = request.getURI().getPath();
-        if( "/api/oauth/login".equals(path)){
+        if( "/api/oauth/login".equals(path) || !URLFilter.hasAuthorize(path)){
             //放行
             return chain.filter(exchange);
         }
