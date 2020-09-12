@@ -170,7 +170,8 @@
 		data:{
 			username:"",
 			password:"",
-			msg:""
+			msg:"",
+			from:[[${from}]]
 		},
 		methods:{
 			login:function () {
@@ -179,6 +180,7 @@
 					if (response.data.flag){
 						//登录成功
 						app.msg="登录成功";
+						window.location=app.from;//登录成功 跳转到原页面
 					}else{
 						app.msg="登录失败";
 					}

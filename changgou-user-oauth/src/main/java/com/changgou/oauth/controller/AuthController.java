@@ -9,11 +9,9 @@ import com.changgou.oauth.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -39,7 +37,8 @@ public class AuthController {
     private int cookieMaxAge;
 
     @GetMapping("/toLogin")
-    public String toLogin(){
+    public String toLogin(@RequestParam(value = "FROM", required = false, defaultValue = "") String from, Model model){
+        model.addAttribute("from", from);
         return "login";
     }
 

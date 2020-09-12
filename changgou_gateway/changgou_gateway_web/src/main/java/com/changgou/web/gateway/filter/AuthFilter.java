@@ -34,6 +34,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
     @Autowired
     private AuthService authService;
 
+    private static final String LOGIN_URL = "http://localhost:9200/oauth/toLogin";
+
     @Override
     //业务逻辑
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -52,21 +54,32 @@ public class AuthFilter implements GlobalFilter, Ordered {
         String jti = authService.getJtiFromCookie(request);
         if (StringUtils.isEmpty(jti)){
             //拒绝访问,请求跳转
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
+//            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return response.setComplete();
+            //跳转登录页面，并携带原访问地址，登录成功后跳转回原访问地址
+            return this.toLoginPage(exchange, LOGIN_URL + "?FROM=" + request.getURI());
         }
 
         //判断redis中是否存在jwt
         String jwt = authService.getJwtFromRedis(jti);
         if (StringUtils.isEmpty(jwt)){
             //拒绝访问，请求跳转
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
+//            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return response.setComplete();
+            return this.toLoginPage(exchange, LOGIN_URL + "?FROM=" + request.getURI());
         }
 
         //校验通过 , 请求头增强，放行(将长令牌放入请求头)
         request.mutate().header(Authorization,"Bearer "+jwt);
         return chain.filter(exchange);
+    }
+
+    private Mono<Void> toLoginPage(ServerWebExchange exchange, String loginUrl) {
+
+        ServerHttpResponse response = exchange.getResponse();
+        response.setStatusCode(HttpStatus.SEE_OTHER);
+        response.getHeaders().add("Location", loginUrl);//SEE_OTHER和Location是相互搭配出现的
+        return response.setComplete();
     }
 
     @Override

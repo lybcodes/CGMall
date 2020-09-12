@@ -2,12 +2,14 @@ package com.changgou.order.controller;
 
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
+import com.changgou.order.config.TokenDecode;
 import com.changgou.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.tools.jstat.Token;
 
 import java.util.Map;
 
@@ -17,6 +19,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
 
     /**
      * 添加购物车
@@ -28,7 +33,8 @@ public class CartController {
     public Result add(@RequestParam("skuId") String skuId, @RequestParam("num") Integer num){
         //添加购物车（用户一定处于登录状态）
         //登录人信息，暂时写死
-        String username = "itheima";
+        //String username = "itheima";
+        String username = tokenDecode.getUserInfo().get("username");
         cartService.add(username, skuId, num);
         return new Result(true, StatusCode.OK, "添加购物车成功");
     }
@@ -40,7 +46,8 @@ public class CartController {
     @GetMapping(value = "/list")
     public Map list(){
         //暂时静态，后续修改
-        String username = "itheima";
+        //String username = "itheima";
+        String username = tokenDecode.getUserInfo().get("username");
         return cartService.list(username);
     }
 }
