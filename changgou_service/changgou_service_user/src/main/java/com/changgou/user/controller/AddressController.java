@@ -2,6 +2,7 @@ package com.changgou.user.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
+import com.changgou.user.config.TokenDecode;
 import com.changgou.user.service.AddressService;
 import com.changgou.user.pojo.Address;
 import com.github.pagehelper.Page;
@@ -104,4 +105,17 @@ public class AddressController {
     }
 
 
+    @Autowired
+    private TokenDecode tokenDecode;
+
+    /**
+     * 根据当前登陆人获取该登陆人下边的地址信息
+     */
+    @GetMapping("/list")
+    public Result<List<Address>> list(){
+        //获取登陆人
+        String username = tokenDecode.getUserInfo().get("username");
+        List<Address> addressesList = addressService.list(username);
+        return new Result<>(true, StatusCode.OK, "查询成功", addressesList);
+    }
 }
