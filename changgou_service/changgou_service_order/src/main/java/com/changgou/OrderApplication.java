@@ -1,5 +1,6 @@
 package com.changgou;
 
+import com.changgou.interceptor.FeignInterceptor;
 import com.changgou.order.config.TokenDecode;
 import com.changgou.util.IdWorker;
 import org.springframework.boot.SpringApplication;
@@ -26,5 +27,10 @@ public class OrderApplication {
     @Bean
     public IdWorker idWorker(){
         return new IdWorker(1,1);
+    }
+
+    @Bean
+    public FeignInterceptor feignInterceptor(){
+        return new FeignInterceptor();
     }
 }

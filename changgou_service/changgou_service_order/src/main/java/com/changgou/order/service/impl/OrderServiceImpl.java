@@ -1,5 +1,6 @@
 package com.changgou.order.service.impl;
 
+import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.dao.OrderItemMapper;
 import com.changgou.order.dao.OrderMapper;
 import com.changgou.order.pojo.OrderItem;
@@ -36,6 +37,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private SkuFeign skuFeign;
 
     /**
      * 查询全部列表
@@ -103,6 +107,9 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setOrderId(order.getId());
             orderItemMapper.insertSelective(orderItem);
         }
+
+        //减库存
+        skuFeign.decrCount(order.getUsername());
 
         //清除Redis缓存购物车数据
         redisTemplate.delete("cart_"+order.getUsername());
