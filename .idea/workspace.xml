@@ -382,7 +382,7 @@
     <property name="SearchEverywhereHistoryKey" value="decrCount&#9;PSI&#9;JAVA://com.changgou.goods.controller.SkuController#decrCount&#10;orderit&#9;PSI&#9;JAVA://com.changgou.order.pojo.OrderItem" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1601990965788" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1601990975841" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/changgou_common_fescar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
