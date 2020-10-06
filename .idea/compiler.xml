@@ -11,6 +11,7 @@
         <module name="changgou_canal" />
         <module name="changgou_common" />
         <module name="changgou_common_db" />
+        <module name="changgou_common_fescar" />
         <module name="changgou_eureka" />
         <module name="changgou_gateway_system" />
         <module name="changgou_gateway_web" />
@@ -38,6 +39,7 @@
       <module name="changgou_canal" target="1.8" />
       <module name="changgou_common" target="1.8" />
       <module name="changgou_common_db" target="1.8" />
+      <module name="changgou_common_fescar" target="1.8" />
       <module name="changgou_eureka" target="1.8" />
       <module name="changgou_gateway" target="1.8" />
       <module name="changgou_gateway_system" target="1.8" />

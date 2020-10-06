@@ -1,5 +1,6 @@
 package com.changgou.order.service.impl;
 
+import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.dao.OrderItemMapper;
 import com.changgou.order.dao.OrderMapper;
@@ -13,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.resource.CachingResourceTransformer;
 import tk.mybatis.mapper.entity.Example;
 
@@ -66,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
      * @param order
      */
     @Override
+    @GlobalTransactional(name = "order_add")
     public void add(Order order){
         /**
          * 1、获取redis中的购物车数据
